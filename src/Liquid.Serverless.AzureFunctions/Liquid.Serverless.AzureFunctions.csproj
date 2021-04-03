@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <PackageId>Liquid.Serverless.AzureFunctions</PackageId>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Authors>Avanade Brazil</Authors>
+    <Company>Avanade Inc.</Company>
+    <Product>Liquid - Modern Application Framework</Product>
+    <Copyright>Avanade 2019</Copyright>
+    <PackageProjectUrl>https://github.com/Avanade/Liquid.Serverless</PackageProjectUrl>
+    <PackageIcon>logo.png</PackageIcon>
+    <Version>2.0.0-alpha</Version>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <IsPackable>true</IsPackable>
+    <DebugType>Full</DebugType>
+    <ProjectGuid>{30DFE28F-AB1A-43A7-80DD-0B4921E34CBF}</ProjectGuid>
+    <Description>
+      The Liquid.Serverless.AzureFunctions contains modules and functionalities to provide a better way to configure and use a Azure Function project using asp.net core 3.1 and Azure Functions v3.
+      This component is part of Liquid Application Framework.
+    </Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Liquid.Core" Version="2.0.0-alpha" />
+    <PackageReference Include="Liquid.Domain" Version="2.0.0-alpha" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="9.5.1" />
+    <PackageReference Include="Microsoft.Azure.Functions.Extensions" Version="1.1.0" />
+    <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.Http" Version="3.0.12" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\logo.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>
