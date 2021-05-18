@@ -1,6 +1,7 @@
 ﻿using Liquid.Serverless.AzureFunctions.Middlewares.Http;
 using Liquid.Serverless.AzureFunctions.Tests.Mocks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Internal;
 using Microsoft.Extensions.Primitives;
 using NSubstitute;
 using NUnit.Framework;
@@ -11,11 +12,14 @@ using System.Threading.Tasks;
 
 namespace Liquid.Serverless.AzureFunctions.Tests.TestCases.Middlewares
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [TestFixture]
     [ExcludeFromCodeCoverage]
-    public class CultureHandlerMiddlewareTests
+    public class ChannelHandlerMiddlewareTests
     {
-        CultureHandlerMiddleware _sut;
+        ChannelHandlerMiddleware _sut;
 
         /// <summary>
         /// Establishes the context.
@@ -24,29 +28,30 @@ namespace Liquid.Serverless.AzureFunctions.Tests.TestCases.Middlewares
         public void EstablishContext()
         {
             ILightContextFactoryMock.GetMock();
-            _sut = new CultureHandlerMiddleware(Substitute.For<IHttpRequestMiddleware>(),
-                                                ILightContextFactoryMock.Context,
-                                                ILightConfigurationCultureSettingsMock.GetMock());
+            _sut = new ChannelHandlerMiddleware(ILightContextFactoryMock.Context);
         }
 
+        /// <summary>
+        /// Verifies the invoke asynchronous.
+        /// </summary>
         [Test]
         public async Task Verify_InvokeAsync()
         {
             var mock = new DefaultHttpContext().Request;
 
-            //Assert default culture.
+            //Assert channel null
             await _sut.InvokeAsync(mock, Substitute.For<Func<Task>>());
-            Assert.AreEqual("en-US", ILightContextFactoryMock.Context.ContextCulture);
+            Assert.AreEqual(null, ILightContextFactoryMock.Context.ContextChannel);
 
-            //Assert culture from queryString
-            mock.Query = new QueryCollection(new Dictionary<string, StringValues> { { "culture", "pt-BR" } });
+            //Assert channel from queryString
+            mock.Query = new QueryCollection(new Dictionary<string, StringValues> { { "channel", "web" } });
             await _sut.InvokeAsync(mock, Substitute.For<Func<Task>>());
-            Assert.AreEqual("pt-BR", ILightContextFactoryMock.Context.ContextCulture);
+            Assert.AreEqual("web", ILightContextFactoryMock.Context.ContextChannel);
 
-            //Assert culture from Header
-            mock.Headers["culture"] = "fr-FR";
+            //Assert channel from Header
+            mock.Headers["channel"] = "mobile";
             await _sut.InvokeAsync(mock, Substitute.For<Func<Task>>());
-            Assert.AreEqual("fr-FR", ILightContextFactoryMock.Context.ContextCulture);
+            Assert.AreEqual("mobile", ILightContextFactoryMock.Context.ContextChannel);
         }
     }
 }
