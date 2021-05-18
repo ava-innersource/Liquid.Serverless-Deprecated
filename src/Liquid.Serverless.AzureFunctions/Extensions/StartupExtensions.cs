@@ -33,7 +33,7 @@ namespace Liquid.Serverless.AzureFunctions.Extensions
             //This step is necessary to obtain the appsettings in a different path than default application running path.
             //In Azure Functions, the assembly runs in a different folder.
             var appDirectory = builder.Services.BuildServiceProvider().GetRequiredService<IOptions<ExecutionContextOptions>>().Value.AppDirectory;
-            IConfiguration configurationRoot = new ConfigurationBuilder().AddLightConfigurationFile(Path.Combine(appDirectory, "appsettings.json")).Build();
+            IConfiguration configurationRoot = new ConfigurationBuilder().AddJsonFile(Path.Combine(appDirectory, "appsettings.json")).Build();
 
             builder.Services.AddSingleton(configurationRoot);
             builder.Services.AddSingleton<ILightConfiguration<FunctionSettings>, FunctionConfiguration>();

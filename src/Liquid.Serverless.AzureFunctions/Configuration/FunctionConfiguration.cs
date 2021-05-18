@@ -14,7 +14,7 @@ namespace Liquid.Serverless.AzureFunctions.Configuration
     ///     <cref>Liquid.Core.Configuration.ILightConfiguration{Liquid.Serverless.AzureFunctions.Configuration.FunctionSettings}</cref>
     /// </seealso>
     [ExcludeFromCodeCoverage]
-    [ConfigurationSection("azureFunctions")]
+    [LiquidConfigurationSection("azureFunctions")]
     public class FunctionConfiguration : LightConfiguration, ILightConfiguration<FunctionSettings>
     {
         /// <summary>
